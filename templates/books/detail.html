@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ book.title }}</h2>
+    <p><strong>Author:</strong> {{ book.author }}</p>
+
+    <hr>
+
+    <h4>📄 AI Summary</h4>
+    <p>{{ book.summary }}</p>
+
+    {% if book.pdf_file %}
+        <a href="{{ book.pdf_file.url }}" class="btn btn-primary" download>
+            Download PDF
+        </a>
+    {% endif %}
+
+    <br><br>
+    <a href="/" class="btn btn-secondary">← Back to Home</a>
+</div>
+{% endblock %}

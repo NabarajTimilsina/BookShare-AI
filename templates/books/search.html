@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Search Results for "{{ query }}"</h2>
+
+{% if results %}
+    {% for book in results %}
+        <div class="card p-3 mb-3">
+            <h4>{{ book.title }}</h4>
+            <p>by {{ book.author }}</p>
+            <a href="/book/{{ book.id }}/" class="btn btn-primary">View Details</a>
+            <button id="clear-history">Clear History</button>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No books found.</p>
+{% endif %}
+
+<a href="/" class="btn btn-secondary mt-3">← Back to Home</a>
+{% endblock %}
