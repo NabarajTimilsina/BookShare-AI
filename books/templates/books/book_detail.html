@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>{{ book.title }}</h1>
+        <h4>by {{ book.author }}</h4>
+        <p>{{ book.description }}</p>
+        
+        {% if book.summary %}
+        <div class="alert alert-info">
+            <h5>AI Summary:</h5>
+            <p>{{ book.summary }}</p>
+        </div>
+        {% else %}
+        <form method="post" action="/book/{{ book.id }}/summary/">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Generate AI Summary</button>
+        </form>
+        {% endif %}
+        
+        <h3>Reviews</h3>
+        {% for review in reviews %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <h6>{{ review.user.username }}</h6>
+                <p>Rating: {{ review.rating }}/5</p>
+                <p>{{ review.comment }}</p>
+            </div>
+        </div>
+        {% endfor %}
+        
+        {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            {{ review_form.as_p }}
+            <button type="submit" class="btn btn-primary">Submit Review</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

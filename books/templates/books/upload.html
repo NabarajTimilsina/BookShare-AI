@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>📤 Upload a Book PDF</h2>
+    <a href="/" class="btn btn-secondary mb-4">← Back to Home</a>
+    
+    <div class="card">
+        <div class="card-body">
+            {% if error %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+            {% endif %}
+            
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label class="form-label">Book Title *</label>
+                    <input type="text" name="title" class="form-control" 
+                           placeholder="Enter book title" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Author *</label>
+                    <input type="text" name="author" class="form-control" 
+                           placeholder="Enter author name" required>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="form-label">PDF File *</label>
+                    <input type="file" name="pdf_file" class="form-control" 
+                           accept=".pdf" required>
+                    <div class="form-text">
+                        Upload a PDF file. AI will read and summarize it.
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-lg w-100">
+                    📄 Upload PDF & Generate AI Summary
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="alert alert-info mt-4">
+        <h5>🤖 How AI Summarization Works:</h5>
+        <ol>
+            <li>Upload your PDF book file</li>
+            <li>Our system extracts text from the PDF</li>
+            <li>Hugging Face AI generates a summary from the content</li>
+            <li>Summary is saved with your book</li>
+        </ol>
+    </div>
+</div>
+{% endblock %}
